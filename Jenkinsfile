@@ -16,10 +16,10 @@ pipeline {
                     // Terraform uses ARM_* environment variables for Azure auth
                     sh '''
                         # Set Terraform environment variables
-                        export ARM_CLIENT_ID="$AZURE_CLIENT_ID"
-                        export ARM_CLIENT_SECRET="$AZURE_CLIENT_SECRET"
-                        export ARM_TENANT_ID="$AZURE_TENANT_ID"
-                        export ARM_SUBSCRIPTION_ID="$AZURE_SUBSCRIPTION_ID"
+                        export ARM_CLIENT_ID="$CLIENT_ID"
+                        export ARM_CLIENT_SECRET="$CLIENT_SECRET"
+                        export ARM_TENANT_ID="$TENANT_ID"
+                        export ARM_SUBSCRIPTION_ID="$SUBSCRIPTION_ID"
 
                         # Initialize and deploy infrastructure
                         terraform init
