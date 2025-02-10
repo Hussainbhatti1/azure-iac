@@ -2,15 +2,10 @@ pipeline {
     agent any
     environment {
         AZURE_CREDENTIALS = credentials('azure-sp') // Reference your Azure credentials stored in Jenkins
-        AZURE_SUBSCRIPTION_ID = credentials('azure-sp').subscription_id // Update with correct variable names
-        AZURE_CLIENT_ID = credentials('azure-sp').client_id
-        AZURE_CLIENT_SECRET = credentials('azure-sp').client_secret
-        AZURE_TENANT_ID = credentials('azure-sp').tenant_id
-
-        echo "My client id is $AZURE_CLIENT_ID"
-        echo "My client secret is $AZURE_CLIENT_SECRET"
-        echo "My tenant id is $AZURE_TENANT_ID"
-        echo "My subscription id is $AZURE_SUBSCRIPTION_ID"
+        AZURE_SUBSCRIPTION_ID = '${AZURE_CREDENTIALS_SUBSCRIPTION_ID}' // Use proper quoting
+        AZURE_CLIENT_ID = '${AZURE_CREDENTIALS_CLIENT_ID}'
+        AZURE_CLIENT_SECRET = '${AZURE_CREDENTIALS_CLIENT_SECRET}'
+        AZURE_TENANT_ID = '${AZURE_CREDENTIALS_TENANT_ID}'
     }
     stages {
         stage('Terraform Init') {
