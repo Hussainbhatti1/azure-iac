@@ -8,12 +8,14 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 script {
-                    // You will access the specific credential values inside the script
-                    def azureCreds = env.AZURE_CREDENTIALS
-                    def clientId = azureCreds.clientId
-                    def clientSecret = azureCreds.clientSecret
-                    def tenantId = azureCreds.tenantId
-                    def subscriptionId = azureCreds.subscriptionId
+                    // Extract clientId and clientSecret from the credentials
+                    def clientId = env.AZURE_CREDENTIALS_USR   // Username field (Client ID)
+                    def clientSecret = env.AZURE_CREDENTIALS_PSW // Password field (Client Secret)
+
+                    // For Tenant ID and Subscription ID, you can either set them in the environment 
+                    // or retrieve them from another source.
+                    def tenantId = '<your-tenant-id>' // Use appropriate value or environment variable
+                    def subscriptionId = '<your-subscription-id>' // Use appropriate value or environment variable
 
                     // Set the environment variables for Terraform execution
                     withEnv([
