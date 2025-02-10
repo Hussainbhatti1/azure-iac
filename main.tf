@@ -1,8 +1,5 @@
-provider "azurerm" {
-  features {}
-}
-
+# Create a resource group
 resource "azurerm_resource_group" "example" {
-  name     = "example-resources"
-  location = "Canada Central"
+  name     = var.resource_group_name
+  location = var.location
 }
