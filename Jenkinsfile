@@ -1,10 +1,10 @@
 pipeline {
     agent any
     environment {
-        ARM_CLIENT_ID = credentials('ARM_CLIENT_ID')
-        ARM_CLIENT_SECRET = credentials('ARM_CLIENT_SECRET')
-        ARM_TENANT_ID = credentials('ARM_TENANT_ID')
-        ARM_SUBSCRIPTION_ID = credentials('ARM_SUBSCRIPTION_ID')
+        ARM_CLIENT_ID = credentials('CLIENT_ID')
+        ARM_CLIENT_SECRET = credentials('CLIENT_SECRET')
+        ARM_TENANT_ID = credentials('TENANT_ID')
+        ARM_SUBSCRIPTION_ID = credentials('SUBSCRIPTION_ID')
     }
     stages {
         stage('Terraform Init') {
