@@ -23,7 +23,11 @@ pipeline {
 
                         # Initialize and deploy infrastructure
                         terraform init
-                        terraform apply -auto-approve
+                        terraform apply -auto-approve \
+                        -var="subscription_id=${ARM_SUBSCRIPTION_ID}" \
+                        -var="client_id=${ARM_CLIENT_ID}" \
+                        -var="client_secret=${ARM_CLIENT_SECRET}" \
+                        -var="tenant_id=${ARM_TENANT_ID}"
                     '''
                 }
             }
