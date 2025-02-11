@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     stages {
-        // Stage 1: Checkout code from Git
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
 
         stage('Terraform Deploy') {
             steps {
