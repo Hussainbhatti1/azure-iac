@@ -25,30 +25,10 @@ pipeline {
         // Stage 3: SonarQube Analysis
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {  // Uses the SonarQube server configured in Jenkins
-                    sh '''
-                        # Run SonarQube scanner
-                        sonar-scanner \
-                          -Dsonar.projectKey=my-azure-project \
-                          -Dsonar.sources=src \
-                          -Dsonar.host.url=http://<VM-Private-IP>:9000 \
-                          -Dsonar.login=${env.SONAR_AUTH_TOKEN}
-                    '''
+                withSonarQubeEnv('SonarQube') {
+                sh 'sonar-scanner -Dsonar.projectKey=my-iac-project'
                 }
             }
-        }
-    }
-
-    // Post-build actions (e.g., notifications)
-    post {
-        always {
-            echo 'Pipeline completed!'
-        }
-        success {
-            slackSend channel: '#devops', message: 'Pipeline succeeded! ✅'
-        }
-        failure {
-            slackSend channel: '#devops', message: 'Pipeline failed! ❌'
         }
     }
 }
