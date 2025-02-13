@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment {
+        SCANNER_HOME = tool 'SonarScanner'
+    }
     stages {
 
         stage('Terraform Deploy') {
@@ -26,10 +28,28 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                sh 'sonar-scanner -Dsonar.projectKey=my-iac-project'
+                    sh '''
+                    ${SCANNER_HOME}/bin/sonar-scanner \
+                      -Dsonar.projectKey=my-iac-project \
+                      -Dsonar.sources=. \
+                      -Dsonar.host.url=http://10.0.0.4:9000 \
+                      -Dsonar.login=squ_e676d58909627e2e81bdf23477d7ba1e3c5735e1
+                    '''
                 }
             }
         }
+
+        stage('Quality Gate') {
+            steps {
+                script {
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                    }
+                }
+            }
+        }
+
     }
 }
 
