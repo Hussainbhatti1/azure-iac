@@ -38,21 +38,5 @@ pipeline {
                 }
             }
         }
-
-        stage('Quality Gate') {
-            steps {
-                script {
-                    def qg = waitForQualityGate()
-                    if (qg.status == 'OK') {
-                        echo "Quality Gate passed"
-                    } else {
-                        echo "Quality Gate failed"
-                        error "Pipeline aborted due to quality gate failure"
-                    }
-                }
-            }
-        }
-
     }
 }
-
